@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <logo :class="{'faded': loaded}"></logo>
+    <!-- <logo :class="{'faded': loaded}" /> -->
     <main>
       <subtitles :text='subtitles.text'
-                 :class="{'active': subtitles.active}"></subtitles>
+                 :class="{'active': subtitles.active}" />
+      <div class='backdrop'/>
       <screen :stream='screen.one.url'
-              :class="screen.one.classObject"></screen>
+              :class="screen.one.classObject" />
       <screen :stream='screen.two.url'
-              :class="screen.two.classObject"></screen>
+              :class="screen.two.classObject" />
     </main>
   </div>
 </template>
@@ -91,7 +92,7 @@ export default {
       console.log('@@ Subtitles')
       clearTimeout(this.subtitles.timer)
       this.subtitles.active = true
-      this.subtitles.text = data.subtitle
+      this.subtitles.text = data.text.subtitle
       this.subtitles.timer = setTimeout(() => {
         this.subtitles.active = false
       }, 4000)
@@ -115,12 +116,15 @@ export default {
     },
     audiotwo(data) {
       console.log('‡‡ Audio 2')
-      this.sound.two.rate = data.playerTwoRate
+      console.log(data)
+
+      // this.sound.two.rate = data.playerTwoRate
+      this.sound.two.rate = 1
       this.sound.two.player.fade(1, 0, 5000)
       this.sound.two.player.once('fade', () => {
         this.sound.two.player.unload()
         this.sound.two.player = new howler.Howl({
-          src: [data.soundTwo.url],
+          src: [data.audio.two.url],
           loop: true,
           volume: 0
         })
@@ -141,7 +145,7 @@ export default {
     })
     this.sound.two.player = new howler.Howl({
       src: [
-        'https://s3-eu-west-1.amazonaws.com/serf.club.audio/audio/181697__setuniman__ominous-0z19p+2.mp3'
+        'https://s3-eu-west-1.amazonaws.com/serf.club.audio/audio/101837__stereodivo__tex-room-tv-ambience.mp3'
       ],
       loop: true,
       volume: 1
@@ -155,12 +159,13 @@ export default {
   },
   methods: {
     updateSources(data) {
-      this.screen.one.url = data.screenOne.url
-      this.screen.two.url = data.screenTwo.url
+      console.log(data)
+      this.screen.one.url = data.video.one.stream.url
+      this.screen.two.url = data.video.two.stream.url
     },
     updateClasses(data) {
-      this.screen.one.classObject = data.screenOne.classObject
-      this.screen.two.classObject = data.screenTwo.classObject
+      this.screen.one.classObject = data.video.one.classObject
+      this.screen.two.classObject = data.video.two.classObject
     }
   }
 }
@@ -194,5 +199,27 @@ main {
   max-height: 100vh;
   pointer-events: none;
   overflow: hidden;
+}
+
+.backdrop {
+  background: url('/static/giphy2.gif');
+  background-size: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  will-change: opacity;
+  transform: scale(1.2);
+  transition: opacity 1.3s ease-in;
+  transform-origin: 50% 50%;
+  z-index: 1000;
+  // mix-blend-mode: lighten;
+  &.active {
+    opacity: 1;
+    transition: opacity 1.3s ease-in;
+  }
 }
 </style>

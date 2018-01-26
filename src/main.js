@@ -4,8 +4,10 @@ import App from './App'
 import VueSocketio from 'vue-socket.io'
 
 // Vue.use(VueSocketio, 'http://34.203.130.113:8080')
-Vue.use(VueSocketio, 'https://serfclubengine-udagtjujws.now.sh')
-// Vue.use(VueSocketio, 'http://192.168.0.65:7070')
+// Vue.use(VueSocketio, 'https://serfclubengine.now.sh')
+// Vue.use(VueSocketio, 'http://192.168.178.25:7070')
+// Vue.use(VueSocketio, 'http://localhost:7070')
+Vue.use(VueSocketio, 'https://serfclubengine-nydhuwskah.now.sh')
 
 // --- ERROR TRACKING
 // import Raven from 'raven-js'
