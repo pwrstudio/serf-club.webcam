@@ -45,11 +45,23 @@ export default {
         timer: {}
       },
       sound: {
-        one: {
+        ambient: {
           player: {},
           rate: 1
         },
-        two: {
+        harmonic: {
+          player: {},
+          rate: 1
+        },
+        melodic: {
+          player: {},
+          rate: 1
+        },
+        noise: {
+          player: {},
+          rate: 1
+        },
+        speech: {
           player: {},
           rate: 1
         }
@@ -78,9 +90,9 @@ export default {
       console.log('## Crosscut')
       this.updateSources(data)
       setTimeout(() => {
-        // this.sound.one.player.rate(playerOneRate)
-        // this.sound.two.player.rate(playerTwoRate)
         this.updateClasses(data)
+        this.sound.noise.player.stop()
+        this.sound.harmonic.player.stop()
         this.subtitles.text = data.subtitles
       }, 4000)
     },
@@ -97,64 +109,115 @@ export default {
         this.subtitles.active = false
       }, 4000)
     },
-    audioone(data) {
-      console.log('‡‡ Audio 1')
-      this.sound.one.rate = data.playerOneRate
-      this.sound.one.player.fade(1, 0, 1000)
-      this.sound.one.player.once('fade', () => {
-        this.sound.one.player.unload()
-        this.sound.one.player = new howler.Howl({
-          src: [data.soundOne.url],
+    ambient(data) {
+      console.log('‡‡ AMBIENT')
+      console.log(data)
+      this.sound.ambient.player.rate = 1
+      this.sound.ambient.player.fade(1, 0, 4000)
+      this.sound.ambient.player.once('fade', () => {
+        this.sound.ambient.player.unload()
+        this.sound.ambient.player = new howler.Howl({
+          src: [data.audio.ambient.url],
           loop: true,
           volume: 0
         })
-        this.sound.one.player.once('load', () => {
-          this.sound.one.player.play()
-          this.sound.one.player.fade(0, 1, 1000)
+        this.sound.ambient.player.once('load', () => {
+          this.sound.ambient.player.play()
+          this.sound.ambient.player.fade(0, 1, 4000)
         })
       })
     },
-    audiotwo(data) {
-      console.log('‡‡ Audio 2')
+    harmonic(data) {
+      console.log('‡‡ HARMONIC')
       console.log(data)
 
-      // this.sound.two.rate = data.playerTwoRate
-      this.sound.two.rate = 1
-      this.sound.two.player.fade(1, 0, 5000)
-      this.sound.two.player.once('fade', () => {
-        this.sound.two.player.unload()
-        this.sound.two.player = new howler.Howl({
-          src: [data.audio.two.url],
-          loop: true,
+      this.sound.harmonic.player.rate = 0.6
+      this.sound.harmonic.player.fade(0.6, 0, 5000)
+      this.sound.harmonic.player.once('fade', () => {
+        this.sound.harmonic.player.unload()
+        this.sound.harmonic.player = new howler.Howl({
+          src: [data.audio.harmonic.url],
           volume: 0
         })
-        this.sound.two.player.once('load', () => {
-          this.sound.two.player.play()
-          this.sound.two.player.fade(0, 1, 6000)
+        this.sound.harmonic.player.once('load', () => {
+          this.sound.harmonic.player.play()
+          this.sound.harmonic.player.fade(0, 0.6, 6000)
+        })
+      })
+    },
+    noise(data) {
+      console.log('‡‡ NOISE')
+      console.log(data)
+
+      this.sound.noise.player.rate = 0.6
+      this.sound.noise.player.fade(0.7, 0, 5000)
+      this.sound.noise.player.once('fade', () => {
+        this.sound.noise.player.unload()
+        this.sound.noise.player = new howler.Howl({
+          src: [data.audio.noise.url],
+          volume: 0
+        })
+        this.sound.noise.player.once('load', () => {
+          this.sound.noise.player.play()
+          this.sound.noise.player.fade(0, 0.7, 6000)
+        })
+      })
+    },
+    melodic(data) {
+      console.log('‡‡ MELODIC')
+      console.log(data)
+
+      this.sound.melodic.player.rate = 0.6
+      this.sound.melodic.player.fade(0.5, 0, 5000)
+      this.sound.melodic.player.once('fade', () => {
+        this.sound.melodic.player.unload()
+        this.sound.melodic.player = new howler.Howl({
+          src: [data.audio.melodic.url],
+          volume: 0
+        })
+        this.sound.melodic.player.once('load', () => {
+          this.sound.melodic.player.play()
+          this.sound.melodic.player.fade(0, 0.5, 6000)
         })
       })
     }
   },
   mounted() {
-    this.sound.one.player = new howler.Howl({
+    // AMBIENT
+    this.sound.ambient.player = new howler.Howl({
       src: [
         'https://s3-eu-west-1.amazonaws.com/serf.club.audio/audio/101837__stereodivo__tex-room-tv-ambience.mp3'
       ],
       loop: true,
       volume: 1
     })
-    this.sound.two.player = new howler.Howl({
+    // Play ambient on load
+    this.sound.ambient.player.once('load', () => {
+      this.sound.ambient.player.play()
+    })
+    // MELODIC
+    this.sound.melodic.player = new howler.Howl({
       src: [
         'https://s3-eu-west-1.amazonaws.com/serf.club.audio/audio/101837__stereodivo__tex-room-tv-ambience.mp3'
       ],
       loop: true,
       volume: 1
     })
-    this.sound.one.player.once('load', () => {
-      // this.sound.one.player.play()
+    // HARMONIC
+    this.sound.harmonic.player = new howler.Howl({
+      src: [
+        'https://s3-eu-west-1.amazonaws.com/serf.club.audio/audio/101837__stereodivo__tex-room-tv-ambience.mp3'
+      ],
+      loop: true,
+      volume: 1
     })
-    this.sound.two.player.once('load', () => {
-      this.sound.two.player.play()
+    // NOISE
+    this.sound.noise.player = new howler.Howl({
+      src: [
+        'https://s3-eu-west-1.amazonaws.com/serf.club.audio/audio/101837__stereodivo__tex-room-tv-ambience.mp3'
+      ],
+      loop: true,
+      volume: 1
     })
   },
   methods: {
@@ -210,13 +273,12 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.3;
+  opacity: 0.25;
   will-change: opacity;
   transform: scale(1.2);
   transition: opacity 1.3s ease-in;
   transform-origin: 50% 50%;
   z-index: 1000;
-  // mix-blend-mode: lighten;
   &.active {
     opacity: 1;
     transition: opacity 1.3s ease-in;

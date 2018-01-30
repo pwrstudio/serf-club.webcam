@@ -9,15 +9,6 @@ import VueSocketio from 'vue-socket.io'
 // Vue.use(VueSocketio, 'http://localhost:7070')
 Vue.use(VueSocketio, 'https://serfclubengine.now.sh')
 
-// --- ERROR TRACKING
-// import Raven from 'raven-js'
-// import RavenVue from 'raven-js/plugins/vue'
-
-// Raven
-//     .config('https://---0@sentry.io/---')
-//     .addPlugin(RavenVue, Vue)
-//     .install()
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
