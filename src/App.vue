@@ -4,7 +4,7 @@
     <main>
       <subtitles :text='subtitles.text'
                  :class="{'active': subtitles.active}" />
-      <div class='backdrop'/>
+      <div class='backdrop' />
       <screen :stream='screen.one.url'
               :class="screen.one.classObject" />
       <screen :stream='screen.two.url'
@@ -151,7 +151,7 @@ export default {
       volume: 1
     })
     this.sound.one.player.once('load', () => {
-      this.sound.one.player.play()
+      // this.sound.one.player.play()
     })
     this.sound.two.player.once('load', () => {
       this.sound.two.player.play()

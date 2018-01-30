@@ -7,7 +7,7 @@ import VueSocketio from 'vue-socket.io'
 // Vue.use(VueSocketio, 'https://serfclubengine.now.sh')
 // Vue.use(VueSocketio, 'http://192.168.178.25:7070')
 // Vue.use(VueSocketio, 'http://localhost:7070')
-Vue.use(VueSocketio, 'https://serfclubengine-nydhuwskah.now.sh')
+Vue.use(VueSocketio, 'https://serfclubengine.now.sh')
 
 // --- ERROR TRACKING
 // import Raven from 'raven-js'
