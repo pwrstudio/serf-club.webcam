@@ -30,12 +30,15 @@ div {
   z-index: 10000;
   color: yellow;
   font-size: 28px;
+  line-height: 28px;
   letter-spacing: 0.02em;
   @include screen-size('small') {
     font-size: 16px;
+    line-height: 16px;
   }
   @include screen-size('large') {
-    font-size: 48px;
+    font-size: 40px;
+    line-height: 40px;
   }
   text-shadow: 0px 0px 10px #000;
   opacity: 0;
